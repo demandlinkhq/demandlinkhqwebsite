@@ -1,0 +1,407 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@700&family=Inter:wght@500&display=swap');
+
+/* ═══════════════════════════════════════════════════════════
+   HEADER — DESIGN TOKENS
+   All visual decisions live here. Edit these values to
+   restyle the header without touching anything else.
+═══════════════════════════════════════════════════════════ */
+.dl-header-wrap {
+
+  /* Background */
+  --hdr-bg:                    #1a1a1a;
+
+  /* ── Logo ── */
+  --hdr-logo-icon-height:      30px;
+  --hdr-logo-font:             'Figtree', sans-serif;
+  --hdr-logo-font-size:        18px;
+  --hdr-logo-font-weight:      700;
+  --hdr-logo-color:            #ffffff;
+
+  /* ── Desktop nav links ── */
+  --hdr-nav-font:              'Inter', sans-serif;
+  --hdr-nav-font-size:         15px;
+  --hdr-nav-font-weight:       500;
+  --hdr-nav-color:             #ffffff;
+  --hdr-nav-hover-opacity:     0.65;
+  --hdr-nav-gap:               32px;
+
+  /* ── CTA button — shared by desktop header + mobile menu ── */
+  --hdr-cta-bg:                #1d4ed8;
+  --hdr-cta-color:             #ffffff;
+  --hdr-cta-font:              'Figtree', sans-serif;
+  --hdr-cta-font-size:         13px;
+  --hdr-cta-font-weight:       700;
+  --hdr-cta-border-radius:     4px;
+  --hdr-cta-padding-v:         9px;
+  --hdr-cta-padding-h:         16px;
+  --hdr-cta-hover-opacity:     0.85;
+
+  /* ── Hamburger icon ── */
+  --hdr-burger-color:          #ffffff;
+  --hdr-burger-line-width:     24px;
+  --hdr-burger-line-height:    2px;
+  --hdr-burger-line-gap:       5px;
+
+  /* ── Mobile menu nav links ── */
+  --hdr-mobile-font:           'Inter', sans-serif;
+  --hdr-mobile-font-size:      16px;
+  --hdr-mobile-font-weight:    500;
+  --hdr-mobile-color:          #ffffff;
+  --hdr-mobile-item-gap:       20px;
+  --hdr-mobile-cta-font-size:  15px;
+
+  /* ── Divider between bar and open mobile menu ── */
+  --hdr-divider-color:         rgba(255, 255, 255, 0.15);
+
+  /* ── Spacing ── */
+  --hdr-bar-padding-v-mobile:  16px;
+  --hdr-bar-padding-h-mobile:  24px;
+  --hdr-bar-padding-v-desktop: 20px;
+  --hdr-mobile-menu-padding-v: 24px;
+
+  /* ── Desktop inner width: % of screen up to the px cap ── */
+  --hdr-inner-width:           65%;
+  --hdr-inner-max-width:       1200px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SCOPED RESET — only affects this block
+═══════════════════════════════════════════════════════════ */
+.dl-header-wrap,
+.dl-header-wrap * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   OUTER WRAPPER
+═══════════════════════════════════════════════════════════ */
+.dl-header-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--hdr-bg);
+}
+
+/* JS adds this when the contact section reaches the header bottom.
+   Switches from sticky to relative so the contact section
+   can occupy the full viewport top with no header covering it. */
+.dl-header-wrap.is-unstuck {
+  position: relative;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HEADER BAR
+   position: relative anchors the absolutely-centered nav.
+═══════════════════════════════════════════════════════════ */
+.dl-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--hdr-bar-padding-v-mobile) var(--hdr-bar-padding-h-mobile);
+  position: relative;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LOGO
+═══════════════════════════════════════════════════════════ */
+.dl-header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  flex-shrink: 0;
+  z-index: 1; /* above the absolutely-positioned nav if they overlap */
+}
+.dl-header-logo-icon {
+  height: var(--hdr-logo-icon-height);
+  width: auto;
+  display: block;
+}
+.dl-header-logo-text {
+  font-family: var(--hdr-logo-font);
+  font-size: var(--hdr-logo-font-size);
+  font-weight: var(--hdr-logo-font-weight);
+  color: var(--hdr-logo-color);
+  line-height: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DESKTOP NAV — centered absolutely within the bar
+═══════════════════════════════════════════════════════════ */
+.dl-header-nav {
+  display: none;
+  list-style: none;
+  gap: var(--hdr-nav-gap);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.dl-header-nav-link {
+  font-family: var(--hdr-nav-font);
+  font-size: var(--hdr-nav-font-size);
+  font-weight: var(--hdr-nav-font-weight);
+  color: var(--hdr-nav-color);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.dl-header-nav-link:hover {
+  opacity: var(--hdr-nav-hover-opacity);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DESKTOP CTA BUTTON — always visible, no scroll-triggered reveal
+═══════════════════════════════════════════════════════════ */
+.dl-header-cta {
+  display: none;
+  font-family: var(--hdr-cta-font);
+  font-size: var(--hdr-cta-font-size);
+  font-weight: var(--hdr-cta-font-weight);
+  color: var(--hdr-cta-color);
+  background: var(--hdr-cta-bg);
+  border: none;
+  border-radius: var(--hdr-cta-border-radius);
+  padding: var(--hdr-cta-padding-v) var(--hdr-cta-padding-h);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  z-index: 1;
+  transition: opacity 0.2s;
+}
+.dl-header-cta:hover {
+  opacity: var(--hdr-cta-hover-opacity);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HAMBURGER BUTTON — mobile only
+═══════════════════════════════════════════════════════════ */
+.dl-header-burger {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hdr-burger-line-gap);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+}
+.dl-header-burger-line {
+  display: block;
+  width: var(--hdr-burger-line-width);
+  height: var(--hdr-burger-line-height);
+  background: var(--hdr-burger-color);
+  border-radius: 1px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE MENU DIVIDER — full-width, shown only when menu is open
+═══════════════════════════════════════════════════════════ */
+.dl-header-divider {
+  display: none;
+  width: 100%;
+  height: 1px;
+  background: var(--hdr-divider-color);
+}
+.dl-header-wrap.menu-open .dl-header-divider {
+  display: block;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE MENU PANEL
+═══════════════════════════════════════════════════════════ */
+.dl-header-mobile-menu {
+  display: none;
+  flex-direction: column;
+  gap: var(--hdr-mobile-item-gap);
+  padding: var(--hdr-mobile-menu-padding-v) var(--hdr-bar-padding-h-mobile);
+}
+.dl-header-wrap.menu-open .dl-header-mobile-menu {
+  display: flex;
+}
+.dl-header-mobile-link {
+  font-family: var(--hdr-mobile-font);
+  font-size: var(--hdr-mobile-font-size);
+  font-weight: var(--hdr-mobile-font-weight);
+  color: var(--hdr-mobile-color);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.dl-header-mobile-link:hover {
+  opacity: var(--hdr-nav-hover-opacity);
+}
+.dl-header-mobile-cta {
+  font-family: var(--hdr-cta-font);
+  font-size: var(--hdr-mobile-cta-font-size);
+  font-weight: var(--hdr-cta-font-weight);
+  color: var(--hdr-cta-color);
+  background: var(--hdr-cta-bg);
+  border: none;
+  border-radius: var(--hdr-cta-border-radius);
+  padding: 13px var(--hdr-cta-padding-h);
+  width: 100%;
+  cursor: pointer;
+  text-align: center;
+  transition: opacity 0.2s;
+}
+.dl-header-mobile-cta:hover {
+  opacity: var(--hdr-cta-hover-opacity);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DESKTOP BREAKPOINT (≥ 768px)
+═══════════════════════════════════════════════════════════ */
+@media (min-width: 768px) {
+  .dl-header-bar {
+    width: var(--hdr-inner-width);
+    max-width: var(--hdr-inner-max-width);
+    margin: 0 auto;
+    padding-top:    var(--hdr-bar-padding-v-desktop);
+    padding-bottom: var(--hdr-bar-padding-v-desktop);
+    padding-left:   0;
+    padding-right:  0;
+  }
+  .dl-header-nav    { display: flex; }
+  .dl-header-cta    { display: block; }
+  .dl-header-burger { display: none; }
+  /* Always hide mobile-only elements on desktop */
+  .dl-header-divider,
+  .dl-header-mobile-menu { display: none !important; }
+}
+</style>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HEADER HTML
+     Section IDs referenced here (dl-hero, dl-difference,
+     dl-process, dl-faq, dl-contact) must match the id=""
+     attributes on the corresponding sections in other blocks.
+═══════════════════════════════════════════════════════════ -->
+<header class="dl-header-wrap" id="dl-header">
+
+  <div class="dl-header-bar">
+
+    <!-- Logo: icon + wordmark -->
+    <a class="dl-header-logo" onclick="dlScroll('dl-hero'); return false;" href="#">
+      <img
+        class="dl-header-logo-icon"
+        src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69eab5f8bd268b0120ae8bb3.png"
+        alt="DemandLink"
+      >
+      <span class="dl-header-logo-text">DemandLink</span>
+    </a>
+
+    <!-- Desktop centered nav -->
+    <ul class="dl-header-nav" role="navigation" aria-label="Main navigation">
+      <li class="dl-header-nav-link" onclick="dlScroll('dl-difference')">Difference</li>
+      <li class="dl-header-nav-link" onclick="dlScroll('dl-process')">Process</li>
+      <li class="dl-header-nav-link" onclick="dlScroll('dl-faq')">FAQ</li>
+      <li class="dl-header-nav-link" onclick="dlScroll('dl-contact')">Contact</li>
+    </ul>
+
+    <!-- Desktop CTA -->
+    <button class="dl-header-cta" onclick="dlScroll('dl-contact')">Get a Proposal</button>
+
+    <!-- Mobile hamburger (hidden on desktop) -->
+    <button
+      class="dl-header-burger"
+      id="dl-burger-btn"
+      onclick="dlToggleMenu()"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+    >
+      <span class="dl-header-burger-line"></span>
+      <span class="dl-header-burger-line"></span>
+      <span class="dl-header-burger-line"></span>
+    </button>
+
+  </div>
+
+  <!-- Full-width divider: only visible when mobile menu is open -->
+  <div class="dl-header-divider" aria-hidden="true"></div>
+
+  <!-- Mobile menu panel -->
+  <nav
+    class="dl-header-mobile-menu"
+    id="dl-mobile-menu"
+    aria-label="Mobile navigation"
+  >
+    <span class="dl-header-mobile-link" onclick="dlScroll('dl-difference')">Difference</span>
+    <span class="dl-header-mobile-link" onclick="dlScroll('dl-process')">Process</span>
+    <span class="dl-header-mobile-link" onclick="dlScroll('dl-faq')">FAQ</span>
+    <span class="dl-header-mobile-link" onclick="dlScroll('dl-contact')">Contact</span>
+    <button class="dl-header-mobile-cta" onclick="dlScroll('dl-contact')">Get a Proposal</button>
+  </nav>
+
+</header>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── Close mobile menu ────────────────────────────────── */
+  function closeMobileMenu() {
+    var header = document.getElementById('dl-header');
+    var btn    = document.getElementById('dl-burger-btn');
+    if (header) header.classList.remove('menu-open');
+    if (btn)    btn.setAttribute('aria-expanded', 'false');
+  }
+
+  /* ── Toggle mobile menu ───────────────────────────────── */
+  window.dlToggleMenu = function () {
+    var header = document.getElementById('dl-header');
+    var btn    = document.getElementById('dl-burger-btn');
+    if (!header) return;
+    var isOpen = header.classList.toggle('menu-open');
+    if (btn) btn.setAttribute('aria-expanded', String(isOpen));
+  };
+
+  /* ── Smooth scroll with header-height offset ──────────── */
+  window.dlScroll = function (id) {
+    var target = document.getElementById(id);
+    if (!target) return;
+    var header   = document.getElementById('dl-header');
+    var isStuck  = header && !header.classList.contains('is-unstuck');
+    var offset   = isStuck ? header.offsetHeight : 0;
+    var top      = target.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+    closeMobileMenu();
+  };
+
+  /* ── Un-sticky when contact section reaches header bottom ─
+     Switches position from sticky to relative so the contact
+     section fills the full viewport top without the header
+     overlapping it. Restores sticky on scroll back up.      */
+  function initStickyGuard() {
+    var header  = document.getElementById('dl-header');
+    var contact = document.getElementById('dl-contact');
+
+    if (!header || !contact) {
+      /* Other blocks may not have rendered yet — retry */
+      setTimeout(initStickyGuard, 300);
+      return;
+    }
+
+    function tick() {
+      var contactTop = contact.getBoundingClientRect().top;
+      if (contactTop <= header.offsetHeight) {
+        header.classList.add('is-unstuck');
+      } else {
+        header.classList.remove('is-unstuck');
+      }
+    }
+
+    window.addEventListener('scroll', tick, { passive: true });
+    tick();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStickyGuard);
+  } else {
+    initStickyGuard();
+  }
+
+}());
+</script>

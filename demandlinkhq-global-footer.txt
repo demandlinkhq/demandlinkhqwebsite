@@ -1,0 +1,188 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* ── Scoped reset ── */
+.footer-wrap,
+.footer-wrap * { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ── FOOTER ── */
+.footer-wrap {
+  background: #1a1a1a;
+  padding: 48px 24px 32px;
+}
+.footer-inner {
+  width: 100%;
+}
+.footer-cols {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.footer-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #b4b4b4;
+  text-decoration: none;
+}
+.footer-contact-icon {
+  display: none;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+.footer-website {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.footer-legal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.footer-col-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #efefee;
+  cursor: default;
+}
+.footer-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #b4b4b4;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.footer-link:hover { opacity: 0.65; }
+.footer-divider {
+  border: none;
+  border-top: 1px solid #b4b4b4;
+  opacity: 0.25;
+  margin-top: 32px;
+  margin-bottom: 20px;
+}
+.footer-copyright {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #b4b4b4;
+  text-align: center;
+}
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .footer-wrap { padding: 64px 40px 40px; }
+  .footer-inner {
+    width: 65%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .footer-cols {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 48px;
+    margin-bottom: 24px;
+  }
+  .footer-contact {
+    flex: 1;
+    align-items: flex-start;
+    width: auto;
+  }
+  .footer-contact-icon { display: block; }
+  .footer-right {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 48px;
+    width: auto;
+  }
+  .footer-website,
+  .footer-legal {
+    align-items: flex-start;
+    width: auto;
+  }
+  .footer-divider { margin-top: 0; }
+  .footer-copyright { text-align: left; }
+}
+</style>
+
+<footer class="footer-wrap">
+  <div class="footer-inner">
+    <div class="footer-cols">
+
+      <!-- Contact info -->
+      <div class="footer-contact">
+        <p class="footer-col-label">Contact</p>
+        <a class="footer-contact-item" href="tel:+19452153805">
+          <svg class="footer-contact-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.5 1.5h3l1.5 3.5-1.75 1.75a9 9 0 0 0 4 4L11 9l3.5 1.5v3A1 1 0 0 1 13.5 14.5 12.5 12.5 0 0 1 1.5 2.5a1 1 0 0 1 1-1z" stroke="#b4b4b4" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          +1 (945) 215-3805
+        </a>
+        <a class="footer-contact-item" href="mailto:contact@demandlinkhq.com">
+          <svg class="footer-contact-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="3.5" width="14" height="9" rx="1.5" stroke="#b4b4b4" stroke-width="1.2"/>
+            <path d="M1 5l7 4.5L15 5" stroke="#b4b4b4" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          contact@demandlinkhq.com
+        </a>
+        <span class="footer-contact-item">
+          <svg class="footer-contact-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 1A4.5 4.5 0 0 1 12.5 5.5c0 3.5-4.5 9-4.5 9S3.5 9 3.5 5.5A4.5 4.5 0 0 1 8 1z" stroke="#b4b4b4" stroke-width="1.2"/>
+            <circle cx="8" cy="5.5" r="1.5" stroke="#b4b4b4" stroke-width="1.2"/>
+          </svg>
+          1 Concord Cityplace Way, Toronto
+        </span>
+      </div>
+
+      <!-- Website + Legal columns -->
+      <div class="footer-right">
+        <div class="footer-website">
+          <p class="footer-col-label">Website</p>
+          <span class="footer-link" onclick="footerNav('dl-hero')">Home</span>
+          <span class="footer-link" onclick="footerNav('dl-difference')">Difference</span>
+          <span class="footer-link" onclick="footerNav('dl-process')">Process</span>
+          <span class="footer-link" onclick="footerNav('dl-faq')">FAQ</span>
+          <span class="footer-link" onclick="footerNav('dl-contact')">Contact</span>
+        </div>
+        <div class="footer-legal">
+          <p class="footer-col-label">Legal</p>
+          <a class="footer-link" href="https://demandlinkhq.com/privacy-policy">Privacy Policy</a>
+          <a class="footer-link" href="https://demandlinkhq.com/terms-of-service">Terms of Service</a>
+        </div>
+      </div>
+
+    </div>
+    <hr class="footer-divider">
+    <p class="footer-copyright">© 2026. DemandLink. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script>
+function footerNav(sectionId) {
+  if (typeof dlScroll === 'function') {
+    dlScroll(sectionId);
+  }
+}
+</script>

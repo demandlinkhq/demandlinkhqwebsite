@@ -1,0 +1,1118 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@700&display=swap');
+
+/* ─── Scoped reset ───────────────────────────────────────── */
+.dl-content,
+.dl-content * { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── Responsive line-break helpers ─────────────────────── */
+/* .mb = break on mobile only   .db = break on desktop only  */
+.dl-content .mb { display: inline; }
+.dl-content .db { display: none;   }
+@media (min-width: 768px) {
+  .dl-content .mb { display: none;   }
+  .dl-content .db { display: inline; }
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   HERO — DESIGN TOKENS
+   Edit values here; nothing else needs to change.
+════════════════════════════════════════════════════════════ */
+.dl-hero {
+  /* background */
+  --hero-bg:                  #1a1a1a;
+
+  /* section padding */
+  --hero-pad-v-mob:           48px;
+  --hero-pad-h-mob:           24px;
+  --hero-pad-v-desk:          80px;
+
+  /* inner column (centering wrapper) */
+  --hero-inner-pct:           65%;
+  --hero-inner-max:           1200px;
+
+  /* per-element max-widths */
+  --hero-hl-max:              740px;
+  --hero-body-max:            560px;
+  --hero-video-max:           640px;
+  --hero-cta-max:             340px;
+
+  /* headline */
+  --hero-hl-font:             'Figtree', sans-serif;
+  --hero-hl-size-mob:         30px;
+  --hero-hl-size-desk:        52px;
+  --hero-hl-weight:           800;
+  --hero-hl-lh:               1.15;
+  --hero-hl-color:            #ffffff;
+
+  /* body paragraph */
+  --hero-body-font:           'Inter', sans-serif;
+  --hero-body-size:           16px;
+  --hero-body-lh:             1.7;
+  --hero-body-color:          #ffffff;
+
+  /* CTA button */
+  --hero-cta-bg:              #1d4ed8;
+  --hero-cta-color:           #ffffff;
+  --hero-cta-font:            'Figtree', sans-serif;
+  --hero-cta-size:            16px;
+  --hero-cta-weight:          700;
+  --hero-cta-radius:          4px;
+  --hero-cta-width:           220px;
+  --hero-cta-pad-v:           14px;
+  --hero-cta-hover:           0.85;
+
+  /* underline note */
+  --hero-note-font:           'Inter', sans-serif;
+  --hero-note-size:           12px;
+  --hero-note-color:          #ffffff;
+}
+
+.dl-hero {
+  background: var(--hero-bg);
+  padding: var(--hero-pad-v-mob) var(--hero-pad-h-mob);
+}
+.dl-hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 28px;
+}
+.dl-hero__headline {
+  font-family: var(--hero-hl-font);
+  font-size: var(--hero-hl-size-mob);
+  font-weight: var(--hero-hl-weight);
+  line-height: var(--hero-hl-lh);
+  color: var(--hero-hl-color);
+  max-width: var(--hero-hl-max);
+}
+.dl-hero__body {
+  font-family: var(--hero-body-font);
+  font-size: var(--hero-body-size);
+  line-height: var(--hero-body-lh);
+  color: var(--hero-body-color);
+  max-width: var(--hero-body-max);
+}
+.dl-hero__video {
+  width: 100%;
+  max-width: var(--hero-video-max);
+}
+.dl-hero__cta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: var(--hero-cta-max);
+  width: 100%;
+}
+.dl-hero__cta-btn {
+  font-family: var(--hero-cta-font);
+  font-size: var(--hero-cta-size);
+  font-weight: var(--hero-cta-weight);
+  color: var(--hero-cta-color);
+  background: var(--hero-cta-bg);
+  border: none;
+  border-radius: var(--hero-cta-radius);
+  padding: var(--hero-cta-pad-v) 0;
+  width: var(--hero-cta-width);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.dl-hero__cta-btn:hover { opacity: var(--hero-cta-hover); }
+.dl-hero__cta-note {
+  font-family: var(--hero-note-font);
+  font-size: var(--hero-note-size);
+  color: var(--hero-note-color);
+}
+
+@media (min-width: 768px) {
+  .dl-hero { padding: var(--hero-pad-v-desk) 40px; }
+  .dl-hero__inner {
+    width: var(--hero-inner-pct);
+    max-width: var(--hero-inner-max);
+    margin: 0 auto;
+  }
+  .dl-hero__headline { font-size: var(--hero-hl-size-desk); }
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   SLIDER — DESIGN TOKENS
+════════════════════════════════════════════════════════════ */
+.dl-slider {
+  /* background */
+  --slider-bg:                #1a1a1a;
+
+  /* section padding */
+  --slider-pad-b-mob:         64px;
+  --slider-pad-b-desk:        80px;
+
+  /* heading */
+  --slider-hdg-font:          'Inter', sans-serif;
+  --slider-hdg-size-mob:      15px;
+  --slider-hdg-size-desk:     16px;
+  --slider-hdg-lh:            1.55;
+  --slider-hdg-color:         #ffffff;
+  --slider-hdg-pb-mob:        32px;
+  --slider-hdg-pb-desk:       40px;
+
+  /* inner column */
+  --slider-inner-pct:         65%;
+  --slider-inner-max:         1200px;
+
+  /* logo strip */
+  --slider-logo-height:       34px;
+  --slider-logo-gap:          56px;
+  --slider-speed:             20s;
+  --slider-fade-color:        #1a1a1a;
+}
+
+.dl-slider {
+  background: var(--slider-bg);
+  padding: 0 0 var(--slider-pad-b-mob);
+  overflow: hidden;
+}
+.dl-slider__hdg-wrap {
+  padding: 0 24px var(--slider-hdg-pb-mob);
+  text-align: center;
+}
+.dl-slider__hdg {
+  font-family: var(--slider-hdg-font);
+  font-size: var(--slider-hdg-size-mob);
+  font-weight: 400;
+  line-height: var(--slider-hdg-lh);
+  color: var(--slider-hdg-color);
+}
+.dl-slider__track-outer {
+  position: relative;
+  overflow: hidden;
+}
+.dl-slider__track-outer::before,
+.dl-slider__track-outer::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.dl-slider__track-outer::before {
+  left: 0;
+  background: linear-gradient(to right, var(--slider-fade-color), transparent);
+}
+.dl-slider__track-outer::after {
+  right: 0;
+  background: linear-gradient(to left, var(--slider-fade-color), transparent);
+}
+.dl-slider__track {
+  display: flex;
+  align-items: center;
+  gap: var(--slider-logo-gap);
+  width: max-content;
+  padding: 8px 0;
+  animation: dlSlide var(--slider-speed) linear infinite;
+}
+.dl-slider__logo {
+  height: var(--slider-logo-height);
+  width: auto;
+  flex-shrink: 0;
+  display: block;
+}
+@keyframes dlSlide {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (min-width: 768px) {
+  .dl-slider { padding: 0 0 var(--slider-pad-b-desk); }
+  .dl-slider__hdg-wrap {
+    width: var(--slider-inner-pct);
+    max-width: var(--slider-inner-max);
+    margin: 0 auto;
+    padding: 0 0 var(--slider-hdg-pb-desk);
+  }
+  .dl-slider__hdg { font-size: var(--slider-hdg-size-desk); }
+  .dl-slider__track-outer {
+    width: var(--slider-inner-pct);
+    max-width: var(--slider-inner-max);
+    margin: 0 auto;
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   DIFFERENCE — DESIGN TOKENS
+════════════════════════════════════════════════════════════ */
+.dl-diff {
+  /* background */
+  --diff-bg:                  #f3f2ee;
+
+  /* section padding */
+  --diff-pad-v-mob:           48px;
+  --diff-pad-h-mob:           24px;
+  --diff-pad-v-desk:          80px;
+
+  /* text block (overline + headline + subhead) */
+  --diff-text-pct:            65%;
+  --diff-text-max:            720px;
+
+  /* cards row */
+  --diff-cards-pct:           65%;
+  --diff-cards-max:           1100px;
+
+  /* overline */
+  --diff-ol-font:             'JetBrains Mono', monospace;
+  --diff-ol-size:             12px;
+  --diff-ol-weight:           700;
+  --diff-ol-color:            #1d4ed8;
+  --diff-ol-spacing:          0.14em;
+  --diff-ol-mb:               14px;
+
+  /* headline */
+  --diff-hl-font:             'Figtree', sans-serif;
+  --diff-hl-size:             clamp(26px, 3.2vw, 42px);
+  --diff-hl-weight:           800;
+  --diff-hl-lh:               1.15;
+  --diff-hl-color:            #0a141f;
+  --diff-hl-mb:               18px;
+
+  /* subhead paragraph */
+  --diff-sub-font:            'Inter', sans-serif;
+  --diff-sub-size:            16px;
+  --diff-sub-lh:              1.75;
+  --diff-sub-color:           #1a1a1a;
+  --diff-sub-mb:              52px;
+
+  /* cards — shared container */
+  --diff-card-bg:             #ffffff;
+  --diff-card-radius:         4px;
+  --diff-card-pad:            28px;
+  --diff-card-gap:            10px;
+  --diff-cards-row-gap:       20px;
+
+  /* card headline — shared across all 3 cards */
+  --diff-card-hl-font:        'Figtree', sans-serif;
+  --diff-card-hl-size:        18px;
+  --diff-card-hl-weight:      700;
+  --diff-card-hl-color:       #0a141f;
+  --diff-card-hl-lh:          1.3;
+
+  /* card subhead — shared */
+  --diff-card-sub-font:       'Figtree', sans-serif;
+  --diff-card-sub-size:       18px;
+  --diff-card-sub-weight:     700;
+  --diff-card-sub-color:      #1d4ed8;
+
+  /* card body — shared */
+  --diff-card-body-font:      'Inter', sans-serif;
+  --diff-card-body-size:      14px;
+  --diff-card-body-lh:        1.75;
+  --diff-card-body-color:     #1a1a1a;
+}
+
+.dl-diff {
+  background: var(--diff-bg);
+  padding: var(--diff-pad-v-mob) var(--diff-pad-h-mob);
+}
+.dl-diff__text-wrap {
+  max-width: var(--diff-text-max);
+  margin: 0 auto;
+}
+.dl-diff__overline {
+  font-family: var(--diff-ol-font);
+  font-size: var(--diff-ol-size);
+  font-weight: var(--diff-ol-weight);
+  color: var(--diff-ol-color);
+  letter-spacing: var(--diff-ol-spacing);
+  text-transform: uppercase;
+  margin-bottom: var(--diff-ol-mb);
+}
+.dl-diff__headline {
+  font-family: var(--diff-hl-font);
+  font-size: var(--diff-hl-size);
+  font-weight: var(--diff-hl-weight);
+  line-height: var(--diff-hl-lh);
+  color: var(--diff-hl-color);
+  margin-bottom: var(--diff-hl-mb);
+}
+.dl-diff__subhead {
+  font-family: var(--diff-sub-font);
+  font-size: var(--diff-sub-size);
+  line-height: var(--diff-sub-lh);
+  color: var(--diff-sub-color);
+  margin-bottom: var(--diff-sub-mb);
+}
+.dl-diff__cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--diff-cards-row-gap);
+  max-width: var(--diff-cards-max);
+  margin: 0 auto;
+}
+.dl-diff__card {
+  background: var(--diff-card-bg);
+  border-radius: var(--diff-card-radius);
+  padding: var(--diff-card-pad);
+  display: flex;
+  flex-direction: column;
+  gap: var(--diff-card-gap);
+}
+.dl-diff__card-hl {
+  font-family: var(--diff-card-hl-font);
+  font-size: var(--diff-card-hl-size);
+  font-weight: var(--diff-card-hl-weight);
+  color: var(--diff-card-hl-color);
+  line-height: var(--diff-card-hl-lh);
+}
+.dl-diff__card-sub {
+  font-family: var(--diff-card-sub-font);
+  font-size: var(--diff-card-sub-size);
+  font-weight: var(--diff-card-sub-weight);
+  color: var(--diff-card-sub-color);
+}
+.dl-diff__card-body {
+  font-family: var(--diff-card-body-font);
+  font-size: var(--diff-card-body-size);
+  line-height: var(--diff-card-body-lh);
+  color: var(--diff-card-body-color);
+}
+
+@media (min-width: 768px) {
+  .dl-diff { padding: var(--diff-pad-v-desk) 40px; }
+  .dl-diff__text-wrap {
+    width: var(--diff-text-pct);
+    max-width: var(--diff-text-max);
+    text-align: center;
+    margin: 0 auto;
+  }
+  .dl-diff__cards {
+    flex-direction: row;
+    align-items: stretch;
+    width: var(--diff-cards-pct);
+    max-width: var(--diff-cards-max);
+    margin: 0 auto;
+  }
+  .dl-diff__card { flex: 1; }
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   PROCESS — DESIGN TOKENS
+════════════════════════════════════════════════════════════ */
+.dl-proc {
+  /* background */
+  --proc-bg:                  #f3f2ee;
+
+  /* section padding */
+  --proc-pad-v-mob:           48px;
+  --proc-pad-h-mob:           24px;
+  --proc-pad-v-desk:          80px;
+
+  /* text block (overline + headline + subhead) */
+  --proc-text-pct:            65%;
+  --proc-text-max:            720px;
+
+  /* steps column */
+  --proc-steps-pct:           65%;
+  --proc-steps-max:           600px;
+
+  /* overline */
+  --proc-ol-font:             'JetBrains Mono', monospace;
+  --proc-ol-size:             12px;
+  --proc-ol-weight:           700;
+  --proc-ol-color:            #1d4ed8;
+  --proc-ol-spacing:          0.14em;
+  --proc-ol-mb:               14px;
+
+  /* headline */
+  --proc-hl-font:             'Figtree', sans-serif;
+  --proc-hl-size:             clamp(26px, 3.2vw, 42px);
+  --proc-hl-weight:           800;
+  --proc-hl-lh:               1.15;
+  --proc-hl-color:            #0a141f;
+  --proc-hl-mb:               18px;
+
+  /* subhead */
+  --proc-sub-font:            'Inter', sans-serif;
+  --proc-sub-size:            16px;
+  --proc-sub-lh:              1.75;
+  --proc-sub-color:           #1a1a1a;
+  --proc-sub-mb:              52px;
+
+  /* ── Step circle + headline colors ──────────────────────
+     "ours"  = steps 1, 2, 3, 5
+     "client"= step 4
+     "final" = step 6 (Deal Closed)
+     Change bg to recolor the circle; change hl to recolor
+     the step headline. They are intentionally separate.    */
+  --proc-circle-bg-ours:      #1d4ed8;
+  --proc-circle-color-ours:   #ffffff;
+  --proc-step-hl-color-ours:  #1d4ed8;
+
+  --proc-circle-bg-client:    #7c3aed;
+  --proc-circle-color-client: #ffffff;
+  --proc-step-hl-color-client:#7c3aed;
+
+  --proc-circle-bg-final:     #16a34a;
+  --proc-circle-color-final:  #ffffff;
+  --proc-step-hl-color-final: #16a34a;
+
+  /* shared step anatomy */
+  --proc-circle-size:         40px;
+  --proc-circle-num-font:     'Inter', sans-serif;
+  --proc-circle-num-size:     15px;
+  --proc-circle-num-weight:   700;
+
+  --proc-step-hl-font:        'JetBrains Mono', monospace;
+  --proc-step-hl-size:        18px;
+  --proc-step-hl-weight:      700;
+  --proc-step-hl-pt:          10px;
+
+  --proc-step-body-font:      'Inter', sans-serif;
+  --proc-step-body-size:      14px;
+  --proc-step-body-lh:        1.8;
+  --proc-step-body-color:     #1a1a1a;
+
+  --proc-connector-color:     #1d4ed8;
+  --proc-connector-opacity:   0.25;
+  --proc-step-pb:             36px;
+}
+
+.dl-proc {
+  background: var(--proc-bg);
+  padding: var(--proc-pad-v-mob) var(--proc-pad-h-mob);
+}
+.dl-proc__text-wrap {
+  max-width: var(--proc-text-max);
+  margin: 0 auto;
+}
+.dl-proc__overline {
+  font-family: var(--proc-ol-font);
+  font-size: var(--proc-ol-size);
+  font-weight: var(--proc-ol-weight);
+  color: var(--proc-ol-color);
+  letter-spacing: var(--proc-ol-spacing);
+  text-transform: uppercase;
+  margin-bottom: var(--proc-ol-mb);
+}
+.dl-proc__headline {
+  font-family: var(--proc-hl-font);
+  font-size: var(--proc-hl-size);
+  font-weight: var(--proc-hl-weight);
+  line-height: var(--proc-hl-lh);
+  color: var(--proc-hl-color);
+  margin-bottom: var(--proc-hl-mb);
+}
+.dl-proc__subhead {
+  font-family: var(--proc-sub-font);
+  font-size: var(--proc-sub-size);
+  line-height: var(--proc-sub-lh);
+  color: var(--proc-sub-color);
+  margin-bottom: var(--proc-sub-mb);
+}
+.dl-proc__steps {
+  max-width: var(--proc-steps-max);
+  margin: 0 auto;
+}
+.dl-proc__step {
+  display: flex;
+  gap: 16px;
+}
+.dl-proc__step-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: var(--proc-circle-size);
+}
+.dl-proc__circle {
+  width: var(--proc-circle-size);
+  height: var(--proc-circle-size);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: var(--proc-circle-num-font);
+  font-size: var(--proc-circle-num-size);
+  font-weight: var(--proc-circle-num-weight);
+}
+/* Per-group circle colors */
+.dl-proc__step--ours   .dl-proc__circle { background: var(--proc-circle-bg-ours);   color: var(--proc-circle-color-ours); }
+.dl-proc__step--client .dl-proc__circle { background: var(--proc-circle-bg-client); color: var(--proc-circle-color-client); }
+.dl-proc__step--final  .dl-proc__circle { background: var(--proc-circle-bg-final);  color: var(--proc-circle-color-final); }
+
+.dl-proc__connector {
+  flex: 1;
+  width: 2px;
+  background: var(--proc-connector-color);
+  opacity: var(--proc-connector-opacity);
+  min-height: 20px;
+}
+.dl-proc__step:last-child .dl-proc__connector { display: none; }
+
+.dl-proc__step-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: var(--proc-step-pb);
+}
+.dl-proc__step:last-child .dl-proc__step-right { padding-bottom: 0; }
+
+.dl-proc__step-hl {
+  font-family: var(--proc-step-hl-font);
+  font-size: var(--proc-step-hl-size);
+  font-weight: var(--proc-step-hl-weight);
+  padding-top: var(--proc-step-hl-pt);
+}
+/* Per-group headline colors */
+.dl-proc__step--ours   .dl-proc__step-hl { color: var(--proc-step-hl-color-ours); }
+.dl-proc__step--client .dl-proc__step-hl { color: var(--proc-step-hl-color-client); }
+.dl-proc__step--final  .dl-proc__step-hl { color: var(--proc-step-hl-color-final); }
+
+.dl-proc__step-body {
+  font-family: var(--proc-step-body-font);
+  font-size: var(--proc-step-body-size);
+  line-height: var(--proc-step-body-lh);
+  color: var(--proc-step-body-color);
+}
+
+@media (min-width: 768px) {
+  .dl-proc { padding: var(--proc-pad-v-desk) 40px; }
+  .dl-proc__text-wrap {
+    width: var(--proc-text-pct);
+    max-width: var(--proc-text-max);
+    text-align: center;
+    margin: 0 auto;
+  }
+  .dl-proc__steps {
+    width: var(--proc-steps-pct);
+    max-width: var(--proc-steps-max);
+    margin: 0 auto;
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   FAQ — DESIGN TOKENS
+════════════════════════════════════════════════════════════ */
+.dl-faq {
+  /* background */
+  --faq-bg:                   #f3f2ee;
+
+  /* section padding */
+  --faq-pad-v-mob:            48px;
+  --faq-pad-h-mob:            24px;
+  --faq-pad-v-desk:           80px;
+
+  /* inner column */
+  --faq-inner-pct:            65%;
+  --faq-inner-max:            800px;
+
+  /* headline */
+  --faq-hl-font:              'Figtree', sans-serif;
+  --faq-hl-size-mob:          32px;
+  --faq-hl-size-desk:         40px;
+  --faq-hl-weight:            800;
+  --faq-hl-color:             #0a141f;
+  --faq-hl-mb:                40px;
+
+  /* questions — shared */
+  --faq-q-font:               'Inter', sans-serif;
+  --faq-q-size:               15px;
+  --faq-q-weight:             600;
+  --faq-q-color:              #1a1a1a;
+  --faq-q-open-color:         #1d4ed8;
+  --faq-q-lh:                 1.4;
+  --faq-q-pad-v:              20px;
+
+  /* answers — shared */
+  --faq-a-font:               'Inter', sans-serif;
+  --faq-a-size:               14px;
+  --faq-a-lh:                 1.8;
+  --faq-a-color:              #1a1a1a;
+  --faq-a-pb:                 20px;
+
+  /* icon */
+  --faq-icon-size:            22px;
+  --faq-icon-color:           #1a1a1a;
+  --faq-icon-open-color:      #1d4ed8;
+
+  /* dividers */
+  --faq-divider-color:        #b4b4b4;
+}
+
+.dl-faq {
+  background: var(--faq-bg);
+  padding: var(--faq-pad-v-mob) var(--faq-pad-h-mob);
+}
+.dl-faq__inner {
+  max-width: var(--faq-inner-max);
+  margin: 0 auto;
+}
+.dl-faq__headline {
+  font-family: var(--faq-hl-font);
+  font-size: var(--faq-hl-size-mob);
+  font-weight: var(--faq-hl-weight);
+  color: var(--faq-hl-color);
+  text-align: center;
+  margin-bottom: var(--faq-hl-mb);
+}
+.dl-faq__item { border-bottom: 1px solid var(--faq-divider-color); }
+.dl-faq__item:first-of-type { border-top: 1px solid var(--faq-divider-color); }
+.dl-faq__q {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--faq-q-pad-v) 0;
+  cursor: pointer;
+  gap: 16px;
+  user-select: none;
+}
+.dl-faq__q-text {
+  font-family: var(--faq-q-font);
+  font-size: var(--faq-q-size);
+  font-weight: var(--faq-q-weight);
+  color: var(--faq-q-color);
+  line-height: var(--faq-q-lh);
+  transition: color 0.2s;
+}
+.dl-faq__item.is-open .dl-faq__q-text { color: var(--faq-q-open-color); }
+.dl-faq__icon {
+  font-size: var(--faq-icon-size);
+  font-weight: 300;
+  color: var(--faq-icon-color);
+  flex-shrink: 0;
+  line-height: 1;
+  transition: transform 0.25s ease, color 0.2s;
+}
+.dl-faq__item.is-open .dl-faq__icon {
+  transform: rotate(45deg);
+  color: var(--faq-icon-open-color);
+}
+.dl-faq__a {
+  display: none;
+  padding: 0 0 var(--faq-a-pb);
+  font-family: var(--faq-a-font);
+  font-size: var(--faq-a-size);
+  line-height: var(--faq-a-lh);
+  color: var(--faq-a-color);
+}
+.dl-faq__item.is-open .dl-faq__a { display: block; }
+.dl-faq__a a {
+  color: var(--faq-q-open-color);
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .dl-faq { padding: var(--faq-pad-v-desk) 40px; }
+  .dl-faq__inner {
+    width: var(--faq-inner-pct);
+    max-width: var(--faq-inner-max);
+  }
+  .dl-faq__headline { font-size: var(--faq-hl-size-desk); }
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   CONTACT — DESIGN TOKENS
+════════════════════════════════════════════════════════════ */
+.dl-contact {
+  /* background */
+  --contact-bg:               #edecea;
+
+  /* section padding */
+  --contact-pad-v-mob:        48px;
+  --contact-pad-h-mob:        24px;
+  --contact-pad-v-desk:       80px;
+
+  /* inner column */
+  --contact-inner-pct:        65%;
+  --contact-inner-max:        1200px;
+
+  /* text block (headline + subhead) */
+  --contact-text-max:         640px;
+
+  /* form wrapper */
+  --contact-form-max:         640px;
+
+  /* headline */
+  --contact-hl-font:          'Figtree', sans-serif;
+  --contact-hl-size-mob:      32px;
+  --contact-hl-size-desk:     40px;
+  --contact-hl-weight:        800;
+  --contact-hl-lh:            1.2;
+  --contact-hl-color:         #0a141f;
+  --contact-hl-mb:            16px;
+
+  /* subhead */
+  --contact-sub-font:         'Inter', sans-serif;
+  --contact-sub-size:         15px;
+  --contact-sub-lh:           1.6;
+  --contact-sub-color:        #1a1a1a;
+  --contact-sub-mb:           32px;
+}
+
+.dl-contact {
+  background: var(--contact-bg);
+  padding: var(--contact-pad-v-mob) var(--contact-pad-h-mob);
+}
+.dl-contact__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: var(--contact-form-max);
+  margin: 0 auto;
+}
+.dl-contact__headline {
+  font-family: var(--contact-hl-font);
+  font-size: var(--contact-hl-size-mob);
+  font-weight: var(--contact-hl-weight);
+  line-height: var(--contact-hl-lh);
+  color: var(--contact-hl-color);
+  text-align: center;
+  margin-bottom: var(--contact-hl-mb);
+  max-width: var(--contact-text-max);
+}
+.dl-contact__subhead {
+  font-family: var(--contact-sub-font);
+  font-size: var(--contact-sub-size);
+  line-height: var(--contact-sub-lh);
+  color: var(--contact-sub-color);
+  text-align: center;
+  margin-bottom: var(--contact-sub-mb);
+}
+.dl-contact__form { width: 100%; }
+
+@media (min-width: 768px) {
+  .dl-contact { padding: var(--contact-pad-v-desk) 40px; }
+  .dl-contact__inner {
+    width: var(--contact-inner-pct);
+    max-width: var(--contact-form-max);
+  }
+  .dl-contact__headline { font-size: var(--contact-hl-size-desk); }
+}
+</style>
+
+
+<div class="dl-content">
+
+<!-- ════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════ -->
+<section class="dl-hero" id="dl-hero">
+  <div class="dl-hero__inner">
+
+    <h1 class="dl-hero__headline">Bath Remodel Leads<br>Your Sales Team<br class="mb"> Will Love</h1>
+
+    <p class="dl-hero__body">Exclusive and text-verified leads delivered real-time and email nurtured to move the homeowner closer to a decision.<br><strong>The result: higher booking rate, higher close rate, shorter sales cycle.</strong></p>
+
+    <div class="dl-hero__video">
+      <script src="https://fast.wistia.com/player.js" async></script>
+      <script src="https://fast.wistia.com/embed/mbn5qbv85o.js" async type="module"></script>
+      <style>wistia-player[media-id='mbn5qbv85o']:not(:defined){background:center/contain no-repeat url('https://fast.wistia.com/embed/medias/mbn5qbv85o/swatch');display:block;filter:blur(5px);padding-top:56.25%}</style>
+      <wistia-player media-id="mbn5qbv85o" aspect="1.7777777777777777"></wistia-player>
+    </div>
+
+    <div class="dl-hero__cta-group">
+      <button class="dl-hero__cta-btn" onclick="dlScroll('dl-contact')">Get a Proposal</button>
+      <span class="dl-hero__cta-note">Pay Per Lead. Cancel Anytime.</span>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     SLIDER
+════════════════════════════════════════════════════════ -->
+<section class="dl-slider">
+
+  <div class="dl-slider__hdg-wrap">
+    <p class="dl-slider__hdg">Get your leads straight to <br class="mb"><strong>your CRM in real time</strong></p>
+  </div>
+
+  <div class="dl-slider__track-outer">
+    <div class="dl-slider__track">
+      <!-- Set 1 -->
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0dfd80b446d0fb90fd71.png" alt="Salesforce">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0e4b80b446d0fb910db7.png" alt="Leadperfection">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0deb109243d2cce11760.png" alt="HubSpot">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0e1180b446d0fb9102ce.png" alt="MarketSharp">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0dab2b7a6ecd79aa4314.png" alt="Pipedrive">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0dd8243975ecf7281859.png" alt="JobNimbus">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0dc1109243d2cce10e4a.png" alt="Zoho">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0e2180b446d0fb91063f.png" alt="Leap">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0d8c109243d2cce1017f.png" alt="AccuLynx">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0e3b2b7a6ecd79aa62d4.png" alt="ImproveIt">
+      <!-- Set 2 — duplicate for seamless loop -->
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0dfd80b446d0fb90fd71.png" alt="Salesforce">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0e4b80b446d0fb910db7.png" alt="Leadperfection">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0deb109243d2cce11760.png" alt="HubSpot">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0e1180b446d0fb9102ce.png" alt="MarketSharp">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0dab2b7a6ecd79aa4314.png" alt="Pipedrive">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0dd8243975ecf7281859.png" alt="JobNimbus">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0dc1109243d2cce10e4a.png" alt="Zoho">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0e2180b446d0fb91063f.png" alt="Leap">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0d8c109243d2cce1017f.png" alt="AccuLynx">
+      <img class="dl-slider__logo" src="https://assets.cdn.filesafe.space/RabPQprM9NSNNaG5WW2R/media/69df0e3b2b7a6ecd79aa62d4.png" alt="ImproveIt">
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     DIFFERENCE
+════════════════════════════════════════════════════════ -->
+<section class="dl-diff" id="dl-difference">
+
+  <div class="dl-diff__text-wrap">
+    <p class="dl-diff__overline">OUR DIFFERENCE</p>
+    <h2 class="dl-diff__headline">Scale Your Lead Volume<br>Without Compromising<br class="mb"> Quality</h2>
+    <p class="dl-diff__subhead">Lead vendors help you scale volume without higher lead costs but usually at the cost of conversion. We keep working your leads with you after handoff to help turn more of them into booked jobs.</p>
+  </div>
+
+  <div class="dl-diff__cards">
+
+    <div class="dl-diff__card">
+      <p class="dl-diff__card-hl">Your Company Introduced on the Confirmation Page</p>
+      <p class="dl-diff__card-sub">→ Higher Booking Rate</p>
+      <p class="dl-diff__card-body">The moment a homeowner submits, they're immediately introduced to your company, your work, and what to expect next while the lead is delivered to your CRM in real time. This changes two things. Your team can call while the homeowner is still engaged, not after their attention has moved on. And when the phone rings, they recognize your name and expect the call instead of treating it like a cold interruption. The result is more conversations turning into booked appointments.</p>
+    </div>
+
+    <div class="dl-diff__card">
+      <p class="dl-diff__card-hl">More Meaningful Touchpoints on Every Lead</p>
+      <p class="dl-diff__card-sub">→ Higher Close Rate</p>
+      <p class="dl-diff__card-body">While your team works the lead, we run a parallel email sequence that reinforces your credibility, showcasing your reviews, past work, and credentials. This way homeowners don't have to make a trust decision with incomplete information. Every additional touchpoint that proves your quality and professionalism reduces uncertainty. By the time your sales conversation happens, homeowners are not questioning who you are. They're ready to talk about the project.</p>
+    </div>
+
+    <div class="dl-diff__card">
+      <p class="dl-diff__card-hl">Educational Content That Guides The Homeowner's Decision</p>
+      <p class="dl-diff__card-sub">→ Shorter Sales Cycle</p>
+      <p class="dl-diff__card-body">Our sequences include educational content on how to evaluate contractors, what questions to ask, and how to plan a project. Most delays happen because homeowners aren't sure what's normal, what to look for and what to ask. By reducing that uncertainty, decisions happen faster and fewer leads stall in the middle of the process. Instead of educating from scratch, your team steps into conversations with homeowners who already understand the process and are closer to saying yes.</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     PROCESS
+════════════════════════════════════════════════════════ -->
+<section class="dl-proc" id="dl-process">
+
+  <div class="dl-proc__text-wrap">
+    <p class="dl-proc__overline">OUR PROCESS</p>
+    <h2 class="dl-proc__headline">A Lead Journey That<br>Optimizes Your Objectives</h2>
+    <p class="dl-proc__subhead">Most vendors design their lead process for their own business goals without much consideration to yours. Ours is built to improve the metrics that matter to you.</p>
+  </div>
+
+  <div class="dl-proc__steps">
+
+    <!-- Step 1 — ours -->
+    <div class="dl-proc__step dl-proc__step--ours">
+      <div class="dl-proc__step-left">
+        <div class="dl-proc__circle">1</div>
+        <div class="dl-proc__connector"></div>
+      </div>
+      <div class="dl-proc__step-right">
+        <span class="dl-proc__step-hl">Lead Generation</span>
+        <p class="dl-proc__step-body">We generate leads through paid media campaigns we own and operate, not through third-party aggregators. You always know exactly where your leads came from and how they entered the funnel.</p>
+      </div>
+    </div>
+
+    <!-- Step 2 — ours -->
+    <div class="dl-proc__step dl-proc__step--ours">
+      <div class="dl-proc__step-left">
+        <div class="dl-proc__circle">2</div>
+        <div class="dl-proc__connector"></div>
+      </div>
+      <div class="dl-proc__step-right">
+        <span class="dl-proc__step-hl">Confirmation Page</span>
+        <p class="dl-proc__step-body">As soon as a homeowner submits, they're introduced to your company by name and directed to your work and credibility assets. By the time your sales rep calls, they know who you are and expect to hear from you.</p>
+      </div>
+    </div>
+
+    <!-- Step 3 — ours -->
+    <div class="dl-proc__step dl-proc__step--ours">
+      <div class="dl-proc__step-left">
+        <div class="dl-proc__circle">3</div>
+        <div class="dl-proc__connector"></div>
+      </div>
+      <div class="dl-proc__step-right">
+        <span class="dl-proc__step-hl">Real Time Delivery</span>
+        <p class="dl-proc__step-body">Leads are delivered to your CRM the moment they submit. No delays or batching. Your team can follow up while interest is highest, increasing contact rates and giving you a better chance to book on the first conversation.</p>
+      </div>
+    </div>
+
+    <!-- Step 4 — client -->
+    <div class="dl-proc__step dl-proc__step--client">
+      <div class="dl-proc__step-left">
+        <div class="dl-proc__circle">4</div>
+        <div class="dl-proc__connector"></div>
+      </div>
+      <div class="dl-proc__step-right">
+        <span class="dl-proc__step-hl">Your Team Works the Lead</span>
+        <p class="dl-proc__step-body">Your team connects while intent is high, books an appointment and works the lead towards a booked job.</p>
+      </div>
+    </div>
+
+    <!-- Step 5 — ours -->
+    <div class="dl-proc__step dl-proc__step--ours">
+      <div class="dl-proc__step-left">
+        <div class="dl-proc__circle">5</div>
+        <div class="dl-proc__connector"></div>
+      </div>
+      <div class="dl-proc__step-right">
+        <span class="dl-proc__step-hl">Nurturing Sequences</span>
+        <p class="dl-proc__step-body">While your team works the deal, we continue reinforcing your credibility through email to keep your company familiar and top of mind. Your reviews, past work and educational content are delivered as a trusted third-party voice to help move the homeowner closer to a decision.</p>
+      </div>
+    </div>
+
+    <!-- Step 6 — final outcome -->
+    <div class="dl-proc__step dl-proc__step--final">
+      <div class="dl-proc__step-left">
+        <div class="dl-proc__circle">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 10.5l4.5 4.5 7.5-9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="dl-proc__step-right">
+        <span class="dl-proc__step-hl">Deal Closed!</span>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     FAQ
+════════════════════════════════════════════════════════ -->
+<section class="dl-faq" id="dl-faq">
+
+  <div class="dl-faq__inner">
+    <h2 class="dl-faq__headline">Frequently Asked Questions</h2>
+
+    <div class="dl-faq__list">
+
+      <div class="dl-faq__item">
+        <div class="dl-faq__q" onclick="dlFaq(this)">
+          <span class="dl-faq__q-text">Where do your leads come from?</span>
+          <span class="dl-faq__icon">+</span>
+        </div>
+        <div class="dl-faq__a">We generate leads through paid advertising campaigns we own and operate. We don't resell leads purchased through third-party platforms or aggregators.</div>
+      </div>
+
+      <div class="dl-faq__item">
+        <div class="dl-faq__q" onclick="dlFaq(this)">
+          <span class="dl-faq__q-text">Where do you send the leads?</span>
+          <span class="dl-faq__icon">+</span>
+        </div>
+        <div class="dl-faq__a">Directly to your CRM, email, phone, or spreadsheet. However you prefer to receive them.</div>
+      </div>
+
+      <div class="dl-faq__item">
+        <div class="dl-faq__q" onclick="dlFaq(this)">
+          <span class="dl-faq__q-text">How quickly are the leads delivered?</span>
+          <span class="dl-faq__icon">+</span>
+        </div>
+        <div class="dl-faq__a">Immediately. No batch sends or delays. The moment a homeowner submits, the lead is sent to your CRM so your team can follow up while interest is highest.</div>
+      </div>
+
+      <div class="dl-faq__item">
+        <div class="dl-faq__q" onclick="dlFaq(this)">
+          <span class="dl-faq__q-text">How many companies receive each lead?</span>
+          <span class="dl-faq__icon">+</span>
+        </div>
+        <div class="dl-faq__a">One. Every lead you receive from us is exclusive to your business.</div>
+      </div>
+
+      <div class="dl-faq__item">
+        <div class="dl-faq__q" onclick="dlFaq(this)">
+          <span class="dl-faq__q-text">What happens if a lead has bad contact information?</span>
+          <span class="dl-faq__icon">+</span>
+        </div>
+        <div class="dl-faq__a">We replace it.</div>
+      </div>
+
+      <div class="dl-faq__item">
+        <div class="dl-faq__q" onclick="dlFaq(this)">
+          <span class="dl-faq__q-text">Is there a set up fee or a long term contract?</span>
+          <span class="dl-faq__icon">+</span>
+        </div>
+        <div class="dl-faq__a">No. You pay as you go and can cancel any time.</div>
+      </div>
+
+      <div class="dl-faq__item">
+        <div class="dl-faq__q" onclick="dlFaq(this)">
+          <span class="dl-faq__q-text">What if I have more questions?</span>
+          <span class="dl-faq__icon">+</span>
+        </div>
+        <div class="dl-faq__a">You can email <a href="mailto:contact@demandlinkhq.com">contact@demandlinkhq.com</a>, text / call <a href="tel:+19452153805">945-215-3805</a>, or fill out our form and we will get in touch with you.</div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     CONTACT
+════════════════════════════════════════════════════════ -->
+<section class="dl-contact" id="dl-contact">
+
+  <div class="dl-contact__inner">
+    <h2 class="dl-contact__headline">Grow Your Pipeline with DemandLink</h2>
+    <p class="dl-contact__subhead">Pay Per Lead. Cancel Anytime.</p>
+    <div class="dl-contact__form">
+      <iframe
+        src="https://api.leadconnectorhq.com/widget/form/bfnVncB2eJ4TgLzaczzY"
+        style="width:100%;border:none;border-radius:3px;min-height:965px;display:block;"
+        id="inline-bfnVncB2eJ4TgLzaczzY"
+        data-layout="{'id':'INLINE'}"
+        data-trigger-type="alwaysShow"
+        data-trigger-value=""
+        data-activation-type="alwaysActivated"
+        data-activation-value=""
+        data-deactivation-type="neverDeactivate"
+        data-deactivation-value=""
+        data-form-name="DL Form"
+        data-height="965"
+        data-layout-iframe-id="inline-bfnVncB2eJ4TgLzaczzY"
+        data-form-id="bfnVncB2eJ4TgLzaczzY"
+        title="DL Form">
+      </iframe>
+      <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+    </div>
+  </div>
+
+</section>
+
+</div><!-- end .dl-content -->
+
+
+<script>
+(function () {
+  'use strict';
+
+  function dlFaq(questionEl) {
+    var item = questionEl.parentElement;
+    var wasOpen = item.classList.contains('is-open');
+    document.querySelectorAll('.dl-faq__item.is-open').forEach(function (el) {
+      el.classList.remove('is-open');
+    });
+    if (!wasOpen) item.classList.add('is-open');
+  }
+
+  window.dlFaq = dlFaq;
+}());
+</script>
