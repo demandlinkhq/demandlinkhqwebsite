@@ -198,26 +198,31 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   MOBILE MENU DIVIDER — full-width, shown only when menu is open
+   MOBILE MENU DIVIDER — top edge of the fixed panel
 ═══════════════════════════════════════════════════════════ */
 .dl-header-divider {
-  display: none;
-  width: 100%;
-  height: 1px;
-  background: var(--hdr-divider-color);
-}
-.dl-header-wrap.menu-open .dl-header-divider {
-  display: block;
+  display: none; /* kept for markup compatibility; visual divider is the panel border-top */
 }
 
 /* ═══════════════════════════════════════════════════════════
    MOBILE MENU PANEL
+   position: fixed so it escapes any GHL block-container
+   overflow clipping. JS sets --dl-bar-h to the bar's
+   offsetHeight so the panel always opens flush below the bar.
 ═══════════════════════════════════════════════════════════ */
 .dl-header-mobile-menu {
   display: none;
   flex-direction: column;
   gap: var(--hdr-mobile-item-gap);
   padding: var(--hdr-mobile-menu-padding-v) var(--hdr-bar-padding-h-mobile);
+  /* fixed positioning — escapes GHL wrapper overflow */
+  position: fixed;
+  top: var(--dl-bar-h, 62px); /* fallback; JS keeps this accurate */
+  left: 0;
+  right: 0;
+  z-index: 999; /* just below header z-index: 1000 */
+  background: var(--hdr-bg);
+  border-top: 1px solid var(--hdr-divider-color);
 }
 .dl-header-wrap.menu-open .dl-header-mobile-menu {
   display: flex;
@@ -252,9 +257,11 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   DESKTOP BREAKPOINT (≥ 768px)
+   DESKTOP BREAKPOINT (≥ 900px)
+   Raised from 768px so narrow tablets get the full-width
+   mobile bar rather than the constrained 65%-wide desktop bar.
 ═══════════════════════════════════════════════════════════ */
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .dl-header-bar {
     width: var(--hdr-inner-width);
     max-width: var(--hdr-inner-max-width);
@@ -349,11 +356,23 @@
     if (btn)    btn.setAttribute('aria-expanded', 'false');
   }
 
+  /* ── Keep --dl-bar-h in sync so the fixed menu panel
+     always opens flush below the header bar              ── */
+  function syncBarHeight() {
+    var bar = document.querySelector('.dl-header-bar');
+    if (bar) {
+      document.documentElement.style.setProperty('--dl-bar-h', bar.offsetHeight + 'px');
+    }
+  }
+  window.addEventListener('resize', syncBarHeight);
+  syncBarHeight();
+
   /* ── Toggle mobile menu ───────────────────────────────── */
   window.dlToggleMenu = function () {
     var header = document.getElementById('dl-header');
     var btn    = document.getElementById('dl-burger-btn');
     if (!header) return;
+    syncBarHeight(); /* ensure panel top is accurate at toggle time */
     var isOpen = header.classList.toggle('menu-open');
     if (btn) btn.setAttribute('aria-expanded', String(isOpen));
   };
@@ -371,22 +390,25 @@
   };
 
   /* ── Un-sticky when contact section reaches header bottom ─
-     Switches position from sticky to relative so the contact
-     section fills the full viewport top without the header
-     overlapping it. Restores sticky on scroll back up.      */
+     Captures an absolute scrollY threshold once (before any
+     layout switching), then compares window.scrollY on every
+     scroll event. This avoids the getBoundingClientRect
+     oscillation that occurred when sticky → relative changed
+     element positions mid-scroll.
+     Uses MutationObserver so it works regardless of how
+     quickly GHL injects the content block into the DOM.     */
   function initStickyGuard() {
     var header  = document.getElementById('dl-header');
     var contact = document.getElementById('dl-contact');
 
-    if (!header || !contact) {
-      /* Other blocks may not have rendered yet — retry */
-      setTimeout(initStickyGuard, 300);
-      return;
-    }
+    if (!header || !contact) return; /* observer handles the retry */
+
+    /* Capture the absolute page position of the contact section
+       before any is-unstuck switching alters the layout.       */
+    var unstuckAt = contact.getBoundingClientRect().top + window.pageYOffset - header.offsetHeight;
 
     function tick() {
-      var contactTop = contact.getBoundingClientRect().top;
-      if (contactTop <= header.offsetHeight) {
+      if (window.pageYOffset >= unstuckAt) {
         header.classList.add('is-unstuck');
       } else {
         header.classList.remove('is-unstuck');
@@ -397,10 +419,26 @@
     tick();
   }
 
+  function waitForContact() {
+    if (document.getElementById('dl-contact')) {
+      initStickyGuard();
+      return;
+    }
+    /* Watch for the content block (which owns #dl-contact) to
+       be injected by GHL — fires instantly once it appears.   */
+    var obs = new MutationObserver(function () {
+      if (document.getElementById('dl-contact')) {
+        obs.disconnect();
+        initStickyGuard();
+      }
+    });
+    obs.observe(document.body, { childList: true, subtree: true });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initStickyGuard);
+    document.addEventListener('DOMContentLoaded', waitForContact);
   } else {
-    initStickyGuard();
+    waitForContact();
   }
 
 }());
